@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saanaka Bro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      min-height: 100vh;
+    }
+    header {
+      background: rgba(255,255,255,0.95);
+      color: #222;
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .navbar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+    }
+    .navbar .logo {
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #1e3c72;
+      letter-spacing: 1px;
+    }
+    .navbar nav a {
+      color: #222;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .navbar nav a:hover,
+    .navbar nav a.active {
+      color: #2a5298;
+      border-bottom: 2px solid #ffa726;
+      padding-bottom: 2px;
+    }
+    .navbar .socials a {
+      margin-left: 0.7rem;
+      color: #222;
+      font-size: 1.2rem;
+      vertical-align: middle;
+      transition: color 0.2s;
+    }
+    .navbar .socials a:hover {
+      color: #2a5298;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1rem 2rem 1rem;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 4rem;
+      padding-top: 2rem;
+    }
+    h1 {
+      font-size: 2.7rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .highlight {
+      color: #ffa726;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #e0e0e0;
+    }
+    .btn-group {
+      margin-bottom: 2.5rem;
+    }
+    /* Neon Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.7rem;
+      margin: 0 0.5rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: #181c2f;
+      color: #00eaff;
+      box-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff33;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+      position: relative;
+      z-index: 1;
+    }
+    .btn.secondary {
+      background: transparent;
+      color: #ffa726;
+      border: 1.5px solid #ffa726;
+      box-shadow: 0 0 8px #ffa726, 0 0 16px #ffa72633;
+    }
+    .btn:hover, .btn:focus {
+      background: #222;
+      color: #fff;
+      box-shadow: 0 0 16px #00eaff, 0 0 32px #00eaff99;
+      transform: scale(1.08);
+    }
+    .btn.secondary:hover, .btn.secondary:focus {
+      background: #ffa726;
+      color: #fff;
+      box-shadow: 0 0 16px #ffa726, 0 0 32px #ffa72699;
+      transform: scale(1.08);
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      min-width: 200px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      background: rgba(255,255,255,0.13);
+    }
+    .stat-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    .stat-value {
+      font-size: 1.7rem;
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+    .stat-label {
+      font-size: 1.05rem;
+      color: #ffd180;
+      margin-bottom: 0.3rem;
+    }
+    .stat-extra {
+      font-size: 0.95rem;
+      color: #b3b3b3;
+    }
+
+    /* About Section */
+    #about {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 2.5rem 1rem;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #about h2 {
+      color: #ffa726;
+      margin-bottom: 1rem;
+    }
+    #about p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 0.7rem;
+    }
+
+    /* Gallery Section */
+    #gallery h2 {
+      color: #ffa726;
+      margin-bottom: 1.5rem;
+    }
+    .gallery-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+    .gallery-item {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      width: 260px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      height: 180px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .gallery-caption {
+      padding: 0.7rem;
+      font-size: 0.98rem;
+      color: #ffd180;
+    }
+
+    /* Contact Section */
+    #contact {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 2.5rem 1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+    }
+    #contact h2 {
+      color: #ffa726;
+      margin-bottom: 1rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.8rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.13);
+      color: #222;
+      resize: none;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: 2px solid #ffa726;
+    }
+    .contact-form button {
+      align-self: flex-end;
+      background: #ffa726;
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form button:hover {
+      background: #ff9800;
+    }
+    .contact-success {
+      color: #4caf50;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .stats-row { gap: 1rem; }
+      .stat-card { padding: 1.3rem 1rem; min-width: 150px; }
+      .gallery-item { width: 180px; }
+      .gallery-item img { height: 120px; object-position: top; }
+    }
+    @media (max-width: 600px) {
+      .navbar { flex-direction: column; padding: 0 0.5rem; }
+      .stats-row { flex-direction: column; align-items: center; }
+      main { padding: 2rem 0.3rem; }
+      #about, #contact { padding: 1.2rem 0.5rem; }
+      .gallery-item { width: 98vw; max-width: 340px; }
+      .gallery-item img { height: 160px; object-position: top; }
+    }
+
+    @keyframes aboutBgRotate {
+      0% { transform: translateX(-50%) rotate(-6deg); }
+      50% { transform: translateX(-50%) rotate(2deg); }
+      100% { transform: translateX(-50%) rotate(-6deg); }
+    }
+    .about-anim-bg {
+      animation: aboutBgRotate 5s ease-in-out infinite;
+    }
+    @keyframes aboutImgFadeIn {
+      0% { opacity: 0; transform: translateX(-50%) scale(0.92); }
+      100% { opacity: 1; transform: translateX(-50%) scale(1); }
+    }
+    .about-anim-img {
+      animation: aboutImgFadeIn 1.2s cubic-bezier(.4,1.4,.6,1) 0.2s forwards;
+    }
+    @keyframes aboutSocialFadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .about-anim-social {
+      animation: aboutSocialFadeUp 1.1s cubic-bezier(.4,1.4,.6,1) 0.7s forwards;
+    }
+  </style>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <span class="logo">Sanaka Bro</span>
+      <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#latest">Latest</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="socials">
+        <a href="https://youtube.com/@saanaka_bro?si=TJmJL4ixCSsTA7y3" title="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/saanaka_bro?igsh=cGZlMjZsOTB4NDB3" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@saanaka_bro?_t=ZS-8wNFFpE1qhW&_r=1" title="TikTok" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/share/16SPaRMj2G/?mibextid=wwXIfr" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <!-- Home Section -->
+    <section id="home" style="position:relative;overflow:hidden;">
+      <!-- Background illustration -->
+      <img src="399647171_302357009299081_7695116934271138024_n.png" alt="Sanaka Bro Illustration" style="position:absolute;left:50%;top:50px;transform:translateX(-50%);width:520px;max-width:90vw;opacity:0.22;z-index:0;pointer-events:none;">
+      <div style="position:relative;z-index:1;">
+        <h1>Welcome to <span class="highlight">Sanaka Bro</span></h1>
+        <div class="subtitle">
+          Creating engaging content across YouTube, Instagram, and TikTok
+        </div>
+        <div class="btn-group">
+          <button class="btn" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Learn More &rarr;</button>
+          <button class="btn secondary" style="background:transparent;color:#00eaff;border-color:#00eaff;box-shadow:0 0 8px #00eaff,0 0 16px #00eaff33;" onclick="document.getElementById('latest').scrollIntoView({behavior:'smooth'})">Latest Content</button>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-icon" style="color:#ff0000;"><i class="fab fa-youtube"></i></span>
+            <div class="stat-value">158K+</div>
+            <div class="stat-label">YouTube Subscribers</div>
+            <div class="stat-extra">220 Videos</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon" style="color:#e1306c;"><i class="fab fa-instagram"></i></span>
+            <div class="stat-value">33.8K+</div>
+            <div class="stat-label">Instagram Followers</div>
+            <div class="stat-extra">495 Posts</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon" style="color:#000;"><i class="fab fa-tiktok"></i></span>
+            <div class="stat-value">369.8K+</div>
+            <div class="stat-label">TikTok Followers</div>
+            <div class="stat-extra">8.7M Likes</div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon" style="color:#1877f3;"><i class="fab fa-facebook"></i></span>
+            <div class="stat-value">241K+</div>
+            <div class="stat-label">Facebook Followers</div>
+            <div class="stat-extra">25 Following</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Section -->
+    <section id="latest">
+      <h2 class="highlight" style="margin-bottom:2.5rem;">Latest Content</h2>
+      <div style="max-width:1000px;margin:0 auto;text-align:left;">
+        <!-- YouTube -->
+        <h3 style="margin-bottom:1rem;"><span style="color:#ff0000;"><i class="fab fa-youtube"></i></span> Latest YouTube Videos</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem 2%;margin-bottom:2.5rem;justify-content:flex-start;">
+          <iframe width="320" height="180" src="https://www.youtube.com/embed/gwC4QCSfrfM" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:10px;background:#000;"></iframe>
+          <iframe width="320" height="180" src="https://www.youtube.com/embed/7gbzPVMc8Pg" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:10px;background:#000;"></iframe>
+          <iframe width="320" height="180" src="https://www.youtube.com/embed/FBc-XqHja5w" title="YouTube video" frameborder="0" allowfullscreen style="border-radius:10px;background:#000;"></iframe>
+        </div>
+        <!-- Instagram -->
+        <h3 style="margin-bottom:1rem;"><span style="color:#e1306c;"><i class="fab fa-instagram"></i></span> Latest Instagram Posts</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem 2%;margin-bottom:2.5rem;justify-content:flex-start;">
+          <iframe src="https://www.instagram.com/reel/DJOP7c0ojGa/embed" width="320" height="420" frameborder="0" scrolling="no" allowtransparency="true" style="border-radius:10px;background:#fff;"></iframe>
+          <iframe src="https://www.instagram.com/reel/DGphgiiITXz/embed" width="320" height="420" frameborder="0" scrolling="no" allowtransparency="true" style="border-radius:10px;background:#fff;"></iframe>
+          <iframe src="https://www.instagram.com/reel/DJZU-aFIjGu/embed" width="320" height="420" frameborder="0" scrolling="no" allowtransparency="true" style="border-radius:10px;background:#fff;"></iframe>
+        </div>
+        <!-- TikTok -->
+        <h3 style="margin-bottom:1rem;"><span style="color:#ff2d55;"><i class="fab fa-tiktok"></i></span> Latest TikTok Videos</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem 2%;margin-bottom:2.5rem;justify-content:flex-start;">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@saanaka_bro/video/7425136301982125330" data-video-id="7425136301982125330" style="width:320px;height:570px;background:#fff;border-radius:10px;">
+            <section>View this post on TikTok if it does not load. <a href="https://www.tiktok.com/@saanaka_bro/video/7425136301982125330" target="_blank">Watch on TikTok</a></section>
+          </blockquote>
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@saanaka_bro/video/7365064719067008263" data-video-id="7365064719067008263" style="width:320px;height:570px;background:#fff;border-radius:10px;">
+            <section>View this post on TikTok if it does not load. <a href="https://www.tiktok.com/@saanaka_bro/video/7365064719067008263" target="_blank">Watch on TikTok</a></section>
+          </blockquote>
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@saanaka_bro/video/7494858286567623943" data-video-id="7494858286567623943" style="width:320px;height:570px;background:#fff;border-radius:10px;">
+            <section>View this post on TikTok if it does not load. <a href="https://www.tiktok.com/@saanaka_bro/video/7494858286567623943" target="_blank">Watch on TikTok</a></section>
+          </blockquote>
+        </div>
+      </div>
+      <!-- TikTok embed script: Only works on a local server or deployed site, not file:// -->
+      <script async src="https://www.tiktok.com/embed.js"></script>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" style="background:transparent;padding-top:3rem;">
+      <h2 style="color:#2176d2;font-size:2.2rem;margin-bottom:0.5rem;">About Sanaka Bro</h2>
+      <div class="subtitle" style="color:#444;font-size:1.1rem;margin-bottom:2.5rem;">Engineer by day, Comedian by night. Bringing tech and humor together.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center;align-items:flex-start;max-width:1200px;margin:0 auto;">
+        <!-- Left Column -->
+        <div style="flex:1 1 340px;min-width:320px;max-width:420px;display:flex;flex-direction:column;gap:1.5rem;">
+          <!-- Professional Journey -->
+          <div style="background:#fff;color:#222;border-radius:14px;box-shadow:0 2px 16px rgba(0,0,0,0.07);padding:1.5rem 1.2rem;">
+            <div style="font-weight:600;font-size:1.15rem;margin-bottom:1rem;"><i class="fas fa-briefcase" style="color:#2176d2;margin-right:0.7rem;"></i>Professional Journey</div>
+            <ul style="list-style:none;padding:0;">
+              <li style="margin-bottom:0.7rem;"><b>Applications Engineer</b><br><span style="font-size:0.97rem;color:#666;">Synopsys Sri Lanka</span></li>
+              <li style="margin-bottom:0.7rem;"><b>AI / ML Consultant</b><br><span style="font-size:0.97rem;color:#666;">Ainmac</span></li>
+              <li><b>Electronics Engineer</b><br><span style="font-size:0.97rem;color:#666;">Zone24x7 - Machine Learning Team</span></li>
+            </ul>
+          </div>
+          <!-- Education -->
+          <div style="background:#fff;color:#222;border-radius:14px;box-shadow:0 2px 16px rgba(0,0,0,0.07);padding:1.5rem 1.2rem;">
+            <div style="font-weight:600;font-size:1.15rem;margin-bottom:1rem;"><i class="fas fa-graduation-cap" style="color:#2176d2;margin-right:0.7rem;"></i>Education</div>
+            <ul style="list-style:none;padding:0;">
+              <li style="margin-bottom:0.7rem;"><b>MSc in Big Data Analytics</b><br><span style="font-size:0.97rem;color:#666;">Robert Gordon University, UK</span><br><span style="font-size:0.85rem;color:#2176d2;background:#e3f0ff;padding:2px 8px;border-radius:8px;">Currently Pursuing</span></li>
+              <li style="margin-bottom:0.7rem;"><b>BSc in Electronics Engineering</b><br><span style="font-size:0.97rem;color:#666;">University of Peradeniya</span></li>
+              <li><b>Mathematics</b><br><span style="font-size:0.97rem;color:#666;">Richmond College, Galle</span></li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right Column -->
+        <div style="flex:1 1 340px;min-width:320px;max-width:420px;display:flex;flex-direction:column;gap:1.5rem;align-items:center;">
+          <!-- Image and Socials -->
+          <div style="position:relative;width:100%;height:370px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+            <!-- Soft blue rotated rectangle backdrop with animation -->
+            <div class="about-anim-bg" style="position:absolute;left:50%;top:30px;transform:translateX(-50%) rotate(-4deg);width:320px;height:320px;background:#e3f0ff;border-radius:32px;z-index:1;"></div>
+            <!-- Person image with fade/scale animation -->
+            <img class="about-anim-img" src="474555757_579968741537905_7204038585300555243_ny.jpg" alt="Sanaka Bro" style="position:absolute;left:50%;top:0;transform:translateX(-50%);width:240px;height:320px;object-fit:cover;border-radius:24px;box-shadow:0 4px 24px rgba(33,118,210,0.08);z-index:2;background:#fff;opacity:0;">
+            <!-- Social follow card with fade/slide animation -->
+            <div class="about-anim-social" style="position:absolute;bottom:18px;right:18px;background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.13);padding:0.7rem 1.2rem;display:flex;align-items:center;gap:0.7rem;z-index:3;min-width:220px;opacity:0;transform:translateY(30px);">
+              <span style="font-size:1.05rem;font-weight:500;color:#222;white-space:nowrap;">Follow for Comedy & Tech</span>
+              <a href="#" style="color:#ff0000;font-size:1.3rem;"><i class="fab fa-youtube"></i></a>
+              <a href="#" style="color:#e1306c;font-size:1.3rem;"><i class="fab fa-instagram"></i></a>
+              <a href="#" style="color:#000;font-size:1.3rem;"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+          <!-- Skills & Interests -->
+          <div style="background:#fff;color:#222;border-radius:14px;box-shadow:0 2px 16px rgba(0,0,0,0.07);padding:1.5rem 1.2rem;width:100%;">
+            <div style="font-weight:600;font-size:1.15rem;margin-bottom:1rem;"><i class="fas fa-star" style="color:#2176d2;margin-right:0.7rem;"></i>Skills & Interests</div>
+            <div style="margin-bottom:0.7rem;">Comedy & Entertainment <div style="height:6px;background:#e3f0ff;border-radius:4px;margin-top:4px;"><div style="width:95%;height:100%;background:#2176d2;border-radius:4px;"></div></div></div>
+            <div style="margin-bottom:0.7rem;">Electronics Engineering <div style="height:6px;background:#e3f0ff;border-radius:4px;margin-top:4px;"><div style="width:85%;height:100%;background:#2176d2;border-radius:4px;"></div></div></div>
+            <div>Machine Learning <div style="height:6px;background:#e3f0ff;border-radius:4px;margin-top:4px;"><div style="width:75%;height:100%;background:#2176d2;border-radius:4px;"></div></div></div>
+          </div>
+          <!-- Personal -->
+          <div style="background:#fff;color:#222;border-radius:14px;box-shadow:0 2px 16px rgba(0,0,0,0.07);padding:1.5rem 1.2rem;width:100%;">
+            <div style="font-weight:600;font-size:1.15rem;margin-bottom:1rem;"><i class="fas fa-user" style="color:#2176d2;margin-right:0.7rem;"></i>Personal</div>
+            <div style="margin-bottom:0.7rem;"><i class="fas fa-map-marker-alt" style="color:#2176d2;margin-right:0.5rem;"></i>Based in <b>Hikkaduwa, Sri Lanka</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid" style="flex-direction:column;gap:1.2rem;">
+        <div style="display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;">
+          <div class="gallery-item">
+            <img src="474611115_579968601537919_6469549545688598163_n.jpg" alt="Gallery 1">
+          </div>
+          <div class="gallery-item">
+            <img src="474074982_579968744871238_7730770020727316270_n.jpg" alt="Gallery 2">
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;">
+          <div class="gallery-item">
+            <img src="470192751_551285767739536_390797790695000019_n.jpg" alt="Gallery 3">
+          </div>
+          <div class="gallery-item">
+            <img src="470004635_551285701072876_4945150180201138350_n.jpg" alt="Gallery 4">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="subtitle">Want to collaborate or just say hi? Send a message below!</div>
+      <form class="contact-form" id="contactForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+        <div class="contact-success" id="contactSuccess" style="display:none;">Thank you! Your message has been sent.</div>
+      </form>
+    </section>
+  </main>
+  <script>
+    // Navbar active link highlight on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.navbar nav a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Contact form fake submit
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('contactSuccess').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('contactSuccess').style.display = 'none';
+        this.reset();
+      }, 2500);
+    });
+  </script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</body>
+</html> 
